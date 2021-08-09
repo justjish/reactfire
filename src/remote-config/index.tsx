@@ -1,6 +1,6 @@
 import { useRemoteConfig } from '../firebaseApp';
 import { useObservable, ObservableStatus } from '../useObservable';
-import { getValue, getString, getBoolean, getNumber, getAll, AllParameters } from './getValue';
+import { getParsed, getValue, getString, getBoolean, getNumber, getAll, AllParameters } from './getValue';
 import { Observable } from 'rxjs';
 
 type RemoteConfig = import('firebase/app').default.remoteConfig.RemoteConfig;
@@ -77,4 +77,14 @@ export function useRemoteConfigBoolean(key: string): ObservableStatus<boolean> {
  */
 export function useRemoteConfigAll(key: string): ObservableStatus<AllParameters> {
   return useRemoteConfigValue_INTERNAL<AllParameters>(key, getAll);
+}
+
+/**
+ * Convience method provided by reactfire to automatically parse a JSON value from a Remote Config parameter.
+ * @example useRemoteConfigParsed<{myType: string}>('key');
+ * @param key The parameter key in Remote Config
+ * @param remoteConfig Optional instance. If not provided ReactFire will either grab the default instance or lazy load.
+ */
+export function useRemoteConfigParsed<T>(key: string): ObservableStatus<T> {
+  return useRemoteConfigValue_INTERNAL<T>(key, getParsed);
 }

@@ -9,4 +9,5 @@ export declare function getString(remoteConfig: RemoteConfig, key: string): Obse
 export declare function getNumber(remoteConfig: RemoteConfig, key: string): Observable<number>;
 export declare function getBoolean(remoteConfig: RemoteConfig, key: string): Observable<boolean>;
 export declare function getAll(remoteConfig: RemoteConfig): Observable<AllParameters>;
+export declare function getParsed<T>(remoteConfig: RemoteConfig, key: string): Observable<T>;
 export {};

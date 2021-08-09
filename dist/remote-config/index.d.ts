@@ -33,4 +33,11 @@ export declare function useRemoteConfigBoolean(key: string): ObservableStatus<bo
  * @param remoteConfig Optional instance. If not provided ReactFire will either grab the default instance or lazy load.
  */
 export declare function useRemoteConfigAll(key: string): ObservableStatus<AllParameters>;
+/**
+ * Convience method provided by reactfire to automatically parse a JSON value from a Remote Config parameter.
+ * @example useRemoteConfigParsed<{myType: string}>('key');
+ * @param key The parameter key in Remote Config
+ * @param remoteConfig Optional instance. If not provided ReactFire will either grab the default instance or lazy load.
+ */
+export declare function useRemoteConfigParsed<T>(key: string): ObservableStatus<T>;
 export {};

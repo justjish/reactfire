@@ -49,3 +49,8 @@ export function getAll(remoteConfig: RemoteConfig) {
   // No key is needed for getAll()
   return parameter$<AllParameters>({ remoteConfig, key: '', getter });
 }
+
+export function getParsed<T>(remoteConfig: RemoteConfig, key: string) {
+  const getter = (key: string) => JSON.parse(remoteConfig.getString(key)) as T;
+  return parameter$<T>({ remoteConfig, key, getter });
+}

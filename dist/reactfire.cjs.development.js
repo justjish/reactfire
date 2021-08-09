@@ -1927,6 +1927,17 @@ function getAll(remoteConfig) {
     getter: getter
   });
 }
+function getParsed(remoteConfig, key) {
+  var getter = function getter(key) {
+    return JSON.parse(remoteConfig.getString(key));
+  };
+
+  return parameter$({
+    remoteConfig: remoteConfig,
+    key: key,
+    getter: getter
+  });
+}
 
 /**
  * Helper function to construct type safe functions. Since Remote Config has
@@ -1995,6 +2006,16 @@ function useRemoteConfigBoolean(key) {
 
 function useRemoteConfigAll(key) {
   return useRemoteConfigValue_INTERNAL(key, getAll);
+}
+/**
+ * Convience method provided by reactfire to automatically parse a JSON value from a Remote Config parameter.
+ * @example useRemoteConfigParsed<{myType: string}>('key');
+ * @param key The parameter key in Remote Config
+ * @param remoteConfig Optional instance. If not provided ReactFire will either grab the default instance or lazy load.
+ */
+
+function useRemoteConfigParsed(key) {
+  return useRemoteConfigValue_INTERNAL(key, getParsed);
 }
 
 var _excluded = ["storage", "storagePath", "suspense", "placeHolder"];
@@ -2185,6 +2206,7 @@ exports.useRemoteConfig = useRemoteConfig;
 exports.useRemoteConfigAll = useRemoteConfigAll;
 exports.useRemoteConfigBoolean = useRemoteConfigBoolean;
 exports.useRemoteConfigNumber = useRemoteConfigNumber;
+exports.useRemoteConfigParsed = useRemoteConfigParsed;
 exports.useRemoteConfigString = useRemoteConfigString;
 exports.useRemoteConfigValue = useRemoteConfigValue;
 exports.useSigninCheck = useSigninCheck;

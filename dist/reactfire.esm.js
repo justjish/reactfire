@@ -1,6 +1,6 @@
 import { useMemo, createElement, useContext, createContext, version as version$1, Fragment, useState, useEffect, Suspense, useLayoutEffect } from 'react';
 import { user } from 'rxfire/auth';
-import { Observable, from, of, empty, Subject } from 'rxjs';
+import { Observable, from, of, empty, Subject, pipe } from 'rxjs';
 import { switchMap, map, tap, catchError, shareReplay, first } from 'rxjs/operators';
 import firebase from 'firebase/app';
 import { object, list, listVal } from 'rxfire/database';
@@ -1903,10 +1903,7 @@ function getAll(remoteConfig) {
   });
 }
 function getParsed(remoteConfig, key) {
-  var getter = function getter(key) {
-    return JSON.parse(remoteConfig.getString(key));
-  };
-
+  var getter = pipe(remoteConfig.getString, JSON.parse);
   return parameter$({
     remoteConfig: remoteConfig,
     key: key,

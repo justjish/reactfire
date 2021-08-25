@@ -1,4 +1,4 @@
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 
 type RemoteConfig = import('firebase/app').default.remoteConfig.RemoteConfig;
 type RemoteConfigValue = import('firebase/app').default.remoteConfig.Value;
@@ -51,6 +51,6 @@ export function getAll(remoteConfig: RemoteConfig) {
 }
 
 export function getParsed<T>(remoteConfig: RemoteConfig, key: string) {
-  const getter = pipe<string, string, T>(remoteConfig.getString, JSON.parse);
+  const getter = (key: string) => JSON.parse(remoteConfig.getString(key)) as T;
   return parameter$<T>({ remoteConfig, key, getter });
 }

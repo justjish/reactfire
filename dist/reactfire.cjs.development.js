@@ -1928,7 +1928,10 @@ function getAll(remoteConfig) {
   });
 }
 function getParsed(remoteConfig, key) {
-  var getter = rxjs.pipe(remoteConfig.getString, JSON.parse);
+  var getter = function getter(key) {
+    return JSON.parse(remoteConfig.getString(key));
+  };
+
   return parameter$({
     remoteConfig: remoteConfig,
     key: key,

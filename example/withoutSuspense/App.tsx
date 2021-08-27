@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AppCheckProvider, AuthProvider, useFirebaseApp, useInitAppCheck, useInitPerformance } from 'reactfire';
 import { Card } from '../display/Card';
+import { Analytics } from './Analytics'
 import { Auth } from './Auth';
 import { Firestore } from './Firestore';
 import { RealtimeDatabase } from './RealtimeDatabase';

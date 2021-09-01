@@ -1883,7 +1883,7 @@ function getSdkProvider(SdkContext) {
   return function SdkProvider(props) {
     var _props$sdk, _props$sdk$app;
 
-    if (!(props != null && props.sdk)) throw new Error('no sdk provided');
+    if (!props.sdk) throw new Error('no sdk provided');
     var contextualAppName = useFirebaseApp().name;
     var sdkAppName = props == null ? void 0 : (_props$sdk = props.sdk) == null ? void 0 : (_props$sdk$app = _props$sdk.app) == null ? void 0 : _props$sdk$app.name;
     if (sdkAppName !== contextualAppName) throw new Error('sdk was initialized with a different firebase app');

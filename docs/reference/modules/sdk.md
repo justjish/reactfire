@@ -10,6 +10,7 @@
 - [AuthProvider](sdk.md#authprovider)
 - [DatabaseProvider](sdk.md#databaseprovider)
 - [FirestoreProvider](sdk.md#firestoreprovider)
+- [FunctionsProvider](sdk.md#functionsprovider)
 - [PerformanceProvider](sdk.md#performanceprovider)
 - [RemoteConfigProvider](sdk.md#remoteconfigprovider)
 - [StorageProvider](sdk.md#storageprovider)
@@ -17,10 +18,12 @@
 - [useAuth](sdk.md#useauth)
 - [useDatabase](sdk.md#usedatabase)
 - [useFirestore](sdk.md#usefirestore)
+- [useFunctions](sdk.md#usefunctions)
 - [useInitAnalytics](sdk.md#useinitanalytics)
 - [useInitAuth](sdk.md#useinitauth)
 - [useInitDatabase](sdk.md#useinitdatabase)
 - [useInitFirestore](sdk.md#useinitfirestore)
+- [useInitFunctions](sdk.md#useinitfunctions)
 - [useInitPerformance](sdk.md#useinitperformance)
 - [useInitRemoteConfig](sdk.md#useinitremoteconfig)
 - [useInitStorage](sdk.md#useinitstorage)
@@ -46,7 +49,7 @@
 
 #### Defined in
 
-[src/sdk.tsx:69](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L69)
+[src/sdk.tsx:67](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L67)
 
 ___
 
@@ -66,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:68](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L68)
+[src/sdk.tsx:66](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L66)
 
 ___
 
@@ -86,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:70](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L70)
+[src/sdk.tsx:68](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L68)
 
 ___
 
@@ -106,7 +109,27 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:71](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L71)
+[src/sdk.tsx:69](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L69)
+
+___
+
+### FunctionsProvider
+
+▸ `Const` **FunctionsProvider**(`props`): `Element`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `props` | `PropsWithChildren`<`Object`\> |
+
+#### Returns
+
+`Element`
+
+#### Defined in
+
+[src/sdk.tsx:70](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L70)
 
 ___
 
@@ -126,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:72](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L72)
+[src/sdk.tsx:71](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L71)
 
 ___
 
@@ -146,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:74](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L74)
+[src/sdk.tsx:73](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L73)
 
 ___
 
@@ -166,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:73](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L73)
+[src/sdk.tsx:72](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L72)
 
 ___
 
@@ -180,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:77](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L77)
+[src/sdk.tsx:76](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L76)
 
 ___
 
@@ -194,7 +217,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:76](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L76)
+[src/sdk.tsx:75](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L75)
 
 ___
 
@@ -208,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:78](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L78)
+[src/sdk.tsx:77](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L77)
 
 ___
 
@@ -219,6 +242,20 @@ ___
 #### Returns
 
 `Firestore`
+
+#### Defined in
+
+[src/sdk.tsx:78](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L78)
+
+___
+
+### useFunctions
+
+▸ `Const` **useFunctions**(): `Functions`
+
+#### Returns
+
+`Functions`
 
 #### Defined in
 
@@ -310,6 +347,27 @@ ___
 
 ___
 
+### useInitFunctions
+
+▸ `Const` **useInitFunctions**(`initializer`, `options?`): [`ObservableStatus`](../interfaces/useObservable.ObservableStatus.md)<`Functions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `initializer` | (`firebaseApp`: `FirebaseApp`) => `Promise`<`Functions`\> |
+| `options?` | [`ReactFireOptions`](../interfaces/index.ReactFireOptions.md)<`Functions`\> |
+
+#### Returns
+
+[`ObservableStatus`](../interfaces/useObservable.ObservableStatus.md)<`Functions`\>
+
+#### Defined in
+
+[src/sdk.tsx:93](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L93)
+
+___
+
 ### useInitPerformance
 
 ▸ `Const` **useInitPerformance**(`initializer`, `options?`): [`ObservableStatus`](../interfaces/useObservable.ObservableStatus.md)<`FirebasePerformance`\>
@@ -327,7 +385,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:93](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L93)
+[src/sdk.tsx:94](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L94)
 
 ___
 
@@ -348,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:95](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L95)
+[src/sdk.tsx:96](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L96)
 
 ___
 
@@ -369,7 +427,7 @@ ___
 
 #### Defined in
 
-[src/sdk.tsx:97](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L97)
+[src/sdk.tsx:98](https://github.com/FirebaseExtended/reactfire/blob/main/src/sdk.tsx#L98)
 
 ___
 

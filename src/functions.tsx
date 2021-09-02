@@ -2,7 +2,6 @@ import { ObservableStatus, ReactFireOptions, useObservable } from './';
 import { httpsCallable } from 'rxfire/functions';
 import { HttpsCallableOptions } from 'firebase/functions';
 import { useFunctions } from './sdk';
-import { first } from 'rxjs/operators';
 
 /**
  * useFunctionsCallable
@@ -15,6 +14,6 @@ import { first } from 'rxjs/operators';
 export function useFunctionsCallable<Req, Res>(name: string, data: Req, options?: HttpsCallableOptions & ReactFireOptions<Res>): ObservableStatus<Res> {
   const functions = useFunctions();
   const observableId = `functions:httpsCallable:${functions.app.name}:${name}:${performance.now()}`;
-  const observable$ = httpsCallable<Req, Res>(functions, name, options)(data).pipe(first());
+  const observable$ = httpsCallable<Req, Res>(functions, name, options)(data);
   return useObservable(observableId, observable$, options);
 }

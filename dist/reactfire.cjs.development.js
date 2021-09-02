@@ -1796,7 +1796,7 @@ var useInitStorage = function useInitStorage(initializer, options) {
 function useFunctionsCallable(name, data, options) {
   var functions$1 = useFunctions();
   var observableId = "functions:httpsCallable:" + functions$1.app.name + ":" + name + ":" + performance.now();
-  var observable$ = functions.httpsCallable(functions$1, name, options)(data).pipe(operators.first());
+  var observable$ = functions.httpsCallable(functions$1, name, options)(data);
   return useObservable(observableId, observable$, options);
 }
 

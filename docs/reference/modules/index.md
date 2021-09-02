@@ -7,6 +7,7 @@
 ### References
 
 - [AnalyticsProvider](index.md#analyticsprovider)
+- [AppCheckProvider](index.md#appcheckprovider)
 - [AuthCheck](index.md#authcheck)
 - [AuthCheckProps](index.md#authcheckprops)
 - [AuthProvider](index.md#authprovider)
@@ -17,6 +18,7 @@
 - [DatabaseProvider](index.md#databaseprovider)
 - [FirebaseAppProvider](index.md#firebaseappprovider)
 - [FirestoreProvider](index.md#firestoreprovider)
+- [FunctionsProvider](index.md#functionsprovider)
 - [ObservableStatus](index.md#observablestatus)
 - [PerformanceProvider](index.md#performanceprovider)
 - [RemoteConfigProvider](index.md#remoteconfigprovider)
@@ -32,6 +34,7 @@
 - [preloadObservable](index.md#preloadobservable)
 - [preloadUser](index.md#preloaduser)
 - [useAnalytics](index.md#useanalytics)
+- [useAppCheck](index.md#useappcheck)
 - [useAuth](index.md#useauth)
 - [useDatabase](index.md#usedatabase)
 - [useDatabaseList](index.md#usedatabaselist)
@@ -46,11 +49,14 @@
 - [useFirestoreDocData](index.md#usefirestoredocdata)
 - [useFirestoreDocDataOnce](index.md#usefirestoredocdataonce)
 - [useFirestoreDocOnce](index.md#usefirestoredoconce)
+- [useFunctions](index.md#usefunctions)
 - [useIdTokenResult](index.md#useidtokenresult)
 - [useInitAnalytics](index.md#useinitanalytics)
+- [useInitAppCheck](index.md#useinitappcheck)
 - [useInitAuth](index.md#useinitauth)
 - [useInitDatabase](index.md#useinitdatabase)
 - [useInitFirestore](index.md#useinitfirestore)
+- [useInitFunctions](index.md#useinitfunctions)
 - [useInitPerformance](index.md#useinitperformance)
 - [useInitRemoteConfig](index.md#useinitremoteconfig)
 - [useInitStorage](index.md#useinitstorage)
@@ -94,6 +100,12 @@
 ### AnalyticsProvider
 
 Re-exports: [AnalyticsProvider](sdk.md#analyticsprovider)
+
+___
+
+### AppCheckProvider
+
+Re-exports: [AppCheckProvider](sdk.md#appcheckprovider)
 
 ___
 
@@ -154,6 +166,12 @@ ___
 ### FirestoreProvider
 
 Re-exports: [FirestoreProvider](sdk.md#firestoreprovider)
+
+___
+
+### FunctionsProvider
+
+Re-exports: [FunctionsProvider](sdk.md#functionsprovider)
 
 ___
 
@@ -247,6 +265,12 @@ Re-exports: [useAnalytics](sdk.md#useanalytics)
 
 ___
 
+### useAppCheck
+
+Re-exports: [useAppCheck](sdk.md#useappcheck)
+
+___
+
 ### useAuth
 
 Re-exports: [useAuth](sdk.md#useauth)
@@ -331,6 +355,12 @@ Re-exports: [useFirestoreDocOnce](firestore.md#usefirestoredoconce)
 
 ___
 
+### useFunctions
+
+Re-exports: [useFunctions](sdk.md#usefunctions)
+
+___
+
 ### useIdTokenResult
 
 Re-exports: [useIdTokenResult](auth.md#useidtokenresult)
@@ -340,6 +370,12 @@ ___
 ### useInitAnalytics
 
 Re-exports: [useInitAnalytics](sdk.md#useinitanalytics)
+
+___
+
+### useInitAppCheck
+
+Re-exports: [useInitAppCheck](sdk.md#useinitappcheck)
 
 ___
 
@@ -358,6 +394,12 @@ ___
 ### useInitFirestore
 
 Re-exports: [useInitFirestore](sdk.md#useinitfirestore)
+
+___
+
+### useInitFunctions
+
+Re-exports: [useInitFunctions](sdk.md#useinitfunctions)
 
 ___
 

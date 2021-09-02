@@ -25,7 +25,7 @@ const StorageSdkContext = React.createContext<FirebaseStorage | undefined>(undef
 const PerformanceSdkContext = React.createContext<FirebasePerformance | undefined>(undefined);
 const RemoteConfigSdkContext = React.createContext<RemoteConfig | undefined>(undefined);
 
-type FirebaseSdks = Analytics | AppCheck | Auth | Database | Firestore | Functions | FirebasePerformance | FirebaseStorage | RemoteConfig;
+type FirebaseSdks = Analytics | AppCheck | Auth | Database | Firestore | FirebasePerformance | FirebaseStorage | Functions | RemoteConfig;
 
 function getSdkProvider<Sdk extends FirebaseSdks>(SdkContext: React.Context<Sdk | undefined>) {
   return function SdkProvider(props: React.PropsWithChildren<{ sdk: Sdk }>) {
@@ -66,8 +66,8 @@ function useInitSdk<Sdk extends FirebaseSdks>(
 }
 
 export const AppCheckProvider = getSdkProvider<AppCheck>(AppCheckSdkContext);
-export const AnalyticsProvider = getSdkProvider<Analytics>(AnalyticsSdkContext);
 export const AuthProvider = getSdkProvider<Auth>(AuthSdkContext);
+export const AnalyticsProvider = getSdkProvider<Analytics>(AnalyticsSdkContext);
 export const DatabaseProvider = getSdkProvider<Database>(DatabaseSdkContext);
 export const FirestoreProvider = getSdkProvider<Firestore>(FirestoreSdkContext);
 export const FunctionsProvider = getSdkProvider<Functions>(FunctionsSdkContext);

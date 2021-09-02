@@ -11,15 +11,15 @@ import type { RemoteConfig } from 'firebase/remote-config';
 import { FirebaseApp } from 'firebase/app';
 import { ObservableStatus } from './useObservable';
 import { ReactFireOptions } from '.';
-declare type FirebaseSdks = Analytics | AppCheck | Auth | Database | Firestore | Functions | FirebasePerformance | FirebaseStorage | RemoteConfig;
+declare type FirebaseSdks = Analytics | AppCheck | Auth | Database | Firestore | FirebasePerformance | FirebaseStorage | Functions | RemoteConfig;
 export declare const AppCheckProvider: (props: React.PropsWithChildren<{
     sdk: AppCheck;
 }>) => JSX.Element;
-export declare const AnalyticsProvider: (props: React.PropsWithChildren<{
-    sdk: Analytics;
-}>) => JSX.Element;
 export declare const AuthProvider: (props: React.PropsWithChildren<{
     sdk: Auth;
+}>) => JSX.Element;
+export declare const AnalyticsProvider: (props: React.PropsWithChildren<{
+    sdk: Analytics;
 }>) => JSX.Element;
 export declare const DatabaseProvider: (props: React.PropsWithChildren<{
     sdk: Database;

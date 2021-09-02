@@ -10,6 +10,7 @@ var app = require('firebase/app');
 var database = require('rxfire/database');
 var firestore = require('rxfire/firestore');
 var firestore$1 = require('firebase/firestore');
+var functions = require('rxfire/functions');
 var remoteConfig = require('rxfire/remote-config');
 var storage = require('rxfire/storage');
 var storage$1 = require('firebase/storage');
@@ -1677,6 +1678,128 @@ function useFirestoreCollectionData(query, options) {
   return useObservable(observableId, observable$, options);
 }
 
+var AnalyticsSdkContext = /*#__PURE__*/React.createContext(undefined);
+var AppCheckSdkContext = /*#__PURE__*/React.createContext(undefined);
+var AuthSdkContext = /*#__PURE__*/React.createContext(undefined);
+var DatabaseSdkContext = /*#__PURE__*/React.createContext(undefined);
+var FirestoreSdkContext = /*#__PURE__*/React.createContext(undefined);
+var FunctionsSdkContext = /*#__PURE__*/React.createContext(undefined);
+var StorageSdkContext = /*#__PURE__*/React.createContext(undefined);
+var PerformanceSdkContext = /*#__PURE__*/React.createContext(undefined);
+var RemoteConfigSdkContext = /*#__PURE__*/React.createContext(undefined);
+
+function getSdkProvider(SdkContext) {
+  return function SdkProvider(props) {
+    var _props$sdk, _props$sdk$app;
+
+    if (!props.sdk) throw new Error('no sdk provided');
+    var contextualAppName = useFirebaseApp().name;
+    var sdkAppName = props == null ? void 0 : (_props$sdk = props.sdk) == null ? void 0 : (_props$sdk$app = _props$sdk.app) == null ? void 0 : _props$sdk$app.name;
+    if (sdkAppName !== contextualAppName) throw new Error('sdk was initialized with a different firebase app');
+    return React.createElement(SdkContext.Provider, _extends({
+      value: props.sdk
+    }, props));
+  };
+}
+
+function useSdk(SdkContext) {
+  var sdk = React.useContext(SdkContext);
+  if (!sdk) throw new Error('SDK not found. useSdk must be called from within a provider');
+  return sdk;
+}
+
+function useInitSdk(sdkName, SdkContext, sdkInitializer, options) {
+  var firebaseApp = useFirebaseApp(); // Some initialization functions (like Firestore's `enableIndexedDbPersistence`)
+  // can only be called before anything else. So if an sdk is already available in context,
+  // it isn't safe to call initialization functions again.
+
+  if (React.useContext(SdkContext)) throw new Error("Cannot initialize SDK " + sdkName + " because it already exists in Context");
+  var initializeSdk = React.useMemo(function () {
+    return sdkInitializer(firebaseApp);
+  }, [firebaseApp]);
+  return useObservable("firebase-sdk:" + sdkName + ":" + firebaseApp.name, rxjs.from(initializeSdk), options);
+}
+
+var AppCheckProvider = /*#__PURE__*/getSdkProvider(AppCheckSdkContext);
+var AuthProvider = /*#__PURE__*/getSdkProvider(AuthSdkContext);
+var AnalyticsProvider = /*#__PURE__*/getSdkProvider(AnalyticsSdkContext);
+var DatabaseProvider = /*#__PURE__*/getSdkProvider(DatabaseSdkContext);
+var FirestoreProvider = /*#__PURE__*/getSdkProvider(FirestoreSdkContext);
+var FunctionsProvider = /*#__PURE__*/getSdkProvider(FunctionsSdkContext);
+var PerformanceProvider = /*#__PURE__*/getSdkProvider(PerformanceSdkContext);
+var StorageProvider = /*#__PURE__*/getSdkProvider(StorageSdkContext);
+var RemoteConfigProvider = /*#__PURE__*/getSdkProvider(RemoteConfigSdkContext);
+var useAppCheck = function useAppCheck() {
+  return useSdk(AppCheckSdkContext);
+};
+var useAnalytics = function useAnalytics() {
+  return useSdk(AnalyticsSdkContext);
+};
+var useAuth = function useAuth() {
+  return useSdk(AuthSdkContext);
+};
+var useDatabase = function useDatabase() {
+  return useSdk(DatabaseSdkContext);
+};
+var useFirestore = function useFirestore() {
+  return useSdk(FirestoreSdkContext);
+};
+var useFunctions = function useFunctions() {
+  return useSdk(FunctionsSdkContext);
+};
+var usePerformance = function usePerformance() {
+  return useSdk(PerformanceSdkContext);
+};
+var useStorage = function useStorage() {
+  return useSdk(StorageSdkContext);
+};
+var useRemoteConfig = function useRemoteConfig() {
+  return useSdk(RemoteConfigSdkContext);
+};
+var useInitAppCheck = function useInitAppCheck(initializer, options) {
+  return useInitSdk('appcheck', AppCheckSdkContext, initializer, options);
+};
+var useInitAnalytics = function useInitAnalytics(initializer, options) {
+  return useInitSdk('analytics', AnalyticsSdkContext, initializer, options);
+};
+var useInitAuth = function useInitAuth(initializer, options) {
+  return useInitSdk('auth', AuthSdkContext, initializer, options);
+};
+var useInitDatabase = function useInitDatabase(initializer, options) {
+  return useInitSdk('database', DatabaseSdkContext, initializer, options);
+};
+var useInitFirestore = function useInitFirestore(initializer, options) {
+  return useInitSdk('firestore', FirestoreSdkContext, initializer, options);
+};
+var useInitFunctions = function useInitFunctions(initializer, options) {
+  return useInitSdk('functions', FunctionsSdkContext, initializer, options);
+};
+var useInitPerformance = function useInitPerformance(initializer, options) {
+  return useInitSdk('performance', PerformanceSdkContext, initializer, options);
+};
+var useInitRemoteConfig = function useInitRemoteConfig(initializer, options) {
+  return useInitSdk('remoteconfig', RemoteConfigSdkContext, initializer, options);
+};
+var useInitStorage = function useInitStorage(initializer, options) {
+  return useInitSdk('storage', StorageSdkContext, initializer, options);
+};
+
+/**
+ * useFunctionsCallable
+ * A hook used to make calls to Firebase Callable Functions
+ * @param name Callable function name
+ * @param data Request Payload
+ * @param options Combined HttpsCallableOptions and ReactFireOptions<Res>
+ * @returns
+ */
+
+function useFunctionsCallable(name, data, options) {
+  var functions$1 = useFunctions();
+  var observableId = "functions:httpsCallable:" + functions$1.app.name + ":" + name + ":" + performance.now();
+  var observable$ = functions.httpsCallable(functions$1, name, options)(data).pipe(operators.first());
+  return useObservable(observableId, observable$, options);
+}
+
 function SuspenseWithPerf(_ref) {
   var _performance;
 
@@ -1873,112 +1996,6 @@ function StorageImage(props) {
   }
 }
 
-var AnalyticsSdkContext = /*#__PURE__*/React.createContext(undefined);
-var AppCheckSdkContext = /*#__PURE__*/React.createContext(undefined);
-var AuthSdkContext = /*#__PURE__*/React.createContext(undefined);
-var DatabaseSdkContext = /*#__PURE__*/React.createContext(undefined);
-var FirestoreSdkContext = /*#__PURE__*/React.createContext(undefined);
-var FunctionsSdkContext = /*#__PURE__*/React.createContext(undefined);
-var StorageSdkContext = /*#__PURE__*/React.createContext(undefined);
-var PerformanceSdkContext = /*#__PURE__*/React.createContext(undefined);
-var RemoteConfigSdkContext = /*#__PURE__*/React.createContext(undefined);
-
-function getSdkProvider(SdkContext) {
-  return function SdkProvider(props) {
-    var _props$sdk, _props$sdk$app;
-
-    if (!props.sdk) throw new Error('no sdk provided');
-    var contextualAppName = useFirebaseApp().name;
-    var sdkAppName = props == null ? void 0 : (_props$sdk = props.sdk) == null ? void 0 : (_props$sdk$app = _props$sdk.app) == null ? void 0 : _props$sdk$app.name;
-    if (sdkAppName !== contextualAppName) throw new Error('sdk was initialized with a different firebase app');
-    return React.createElement(SdkContext.Provider, _extends({
-      value: props.sdk
-    }, props));
-  };
-}
-
-function useSdk(SdkContext) {
-  var sdk = React.useContext(SdkContext);
-  if (!sdk) throw new Error('SDK not found. useSdk must be called from within a provider');
-  return sdk;
-}
-
-function useInitSdk(sdkName, SdkContext, sdkInitializer, options) {
-  var firebaseApp = useFirebaseApp(); // Some initialization functions (like Firestore's `enableIndexedDbPersistence`)
-  // can only be called before anything else. So if an sdk is already available in context,
-  // it isn't safe to call initialization functions again.
-
-  if (React.useContext(SdkContext)) throw new Error("Cannot initialize SDK " + sdkName + " because it already exists in Context");
-  var initializeSdk = React.useMemo(function () {
-    return sdkInitializer(firebaseApp);
-  }, [firebaseApp]);
-  return useObservable("firebase-sdk:" + sdkName + ":" + firebaseApp.name, rxjs.from(initializeSdk), options);
-}
-
-var AppCheckProvider = /*#__PURE__*/getSdkProvider(AppCheckSdkContext);
-var AnalyticsProvider = /*#__PURE__*/getSdkProvider(AnalyticsSdkContext);
-var AuthProvider = /*#__PURE__*/getSdkProvider(AuthSdkContext);
-var DatabaseProvider = /*#__PURE__*/getSdkProvider(DatabaseSdkContext);
-var FirestoreProvider = /*#__PURE__*/getSdkProvider(FirestoreSdkContext);
-var FunctionsProvider = /*#__PURE__*/getSdkProvider(FunctionsSdkContext);
-var PerformanceProvider = /*#__PURE__*/getSdkProvider(PerformanceSdkContext);
-var StorageProvider = /*#__PURE__*/getSdkProvider(StorageSdkContext);
-var RemoteConfigProvider = /*#__PURE__*/getSdkProvider(RemoteConfigSdkContext);
-var useAppCheck = function useAppCheck() {
-  return useSdk(AppCheckSdkContext);
-};
-var useAnalytics = function useAnalytics() {
-  return useSdk(AnalyticsSdkContext);
-};
-var useAuth = function useAuth() {
-  return useSdk(AuthSdkContext);
-};
-var useDatabase = function useDatabase() {
-  return useSdk(DatabaseSdkContext);
-};
-var useFirestore = function useFirestore() {
-  return useSdk(FirestoreSdkContext);
-};
-var useFunctions = function useFunctions() {
-  return useSdk(FunctionsSdkContext);
-};
-var usePerformance = function usePerformance() {
-  return useSdk(PerformanceSdkContext);
-};
-var useStorage = function useStorage() {
-  return useSdk(StorageSdkContext);
-};
-var useRemoteConfig = function useRemoteConfig() {
-  return useSdk(RemoteConfigSdkContext);
-};
-var useInitAppCheck = function useInitAppCheck(initializer, options) {
-  return useInitSdk('appcheck', AppCheckSdkContext, initializer, options);
-};
-var useInitAnalytics = function useInitAnalytics(initializer, options) {
-  return useInitSdk('analytics', AnalyticsSdkContext, initializer, options);
-};
-var useInitAuth = function useInitAuth(initializer, options) {
-  return useInitSdk('auth', AuthSdkContext, initializer, options);
-};
-var useInitDatabase = function useInitDatabase(initializer, options) {
-  return useInitSdk('database', DatabaseSdkContext, initializer, options);
-};
-var useInitFirestore = function useInitFirestore(initializer, options) {
-  return useInitSdk('firestore', FirestoreSdkContext, initializer, options);
-};
-var useInitFunctions = function useInitFunctions(initializer, options) {
-  return useInitSdk('functions', FunctionsSdkContext, initializer, options);
-};
-var useInitPerformance = function useInitPerformance(initializer, options) {
-  return useInitSdk('performance', PerformanceSdkContext, initializer, options);
-};
-var useInitRemoteConfig = function useInitRemoteConfig(initializer, options) {
-  return useInitSdk('remoteconfig', RemoteConfigSdkContext, initializer, options);
-};
-var useInitStorage = function useInitStorage(initializer, options) {
-  return useInitSdk('storage', StorageSdkContext, initializer, options);
-};
-
 var ReactFireError = /*#__PURE__*/function (_Error) {
   _inheritsLoose(ReactFireError, _Error);
 
@@ -2052,6 +2069,7 @@ exports.useFirestoreDocData = useFirestoreDocData;
 exports.useFirestoreDocDataOnce = useFirestoreDocDataOnce;
 exports.useFirestoreDocOnce = useFirestoreDocOnce;
 exports.useFunctions = useFunctions;
+exports.useFunctionsCallable = useFunctionsCallable;
 exports.useIdTokenResult = useIdTokenResult;
 exports.useInitAnalytics = useInitAnalytics;
 exports.useInitAppCheck = useInitAppCheck;
